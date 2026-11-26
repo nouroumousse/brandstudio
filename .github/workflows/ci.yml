@@ -1,0 +1,36 @@
+name: Build and verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Expand source bundle
+        run: node scripts/unpack-source.mjs
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Commit expanded source files
+        run: |
+          rm -f brandstudio-source.tar.xz
+          rm -rf bds-payload
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: unpack Brand Delivery Studio source"
+            git push
+          fi
+      - name: Typecheck and production build
+        run: npm run build
