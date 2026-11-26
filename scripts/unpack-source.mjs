@@ -11,7 +11,7 @@ const payloadDirectory = 'bds-payload';
 
 if (!existsSync(archive) && existsSync(payloadDirectory)) {
   const parts = readdirSync(payloadDirectory)
-    .filter((name) => /^part-\\d+\\.b64$/.test(name))
+    .filter((name) => /^part-\d+\.b64$/.test(name))
     .sort();
 
   if (parts.length > 0) {
