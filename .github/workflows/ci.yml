@@ -26,6 +26,7 @@ jobs:
           rm -f brandstudio-source.tar.xz
           rm -rf bds-payload
           git add -A
+          git restore --staged .github/workflows/ci.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if ! git diff --cached --quiet; then
