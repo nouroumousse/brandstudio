@@ -84,3 +84,8 @@ src/
 ## Licence
 
 Project source is provided for personal and commercial use by the repository owner. Third-party dependencies retain their respective licences.
+
+
+## Build verification
+
+The repository includes a GitHub Actions workflow that runs the TypeScript checks and Vite production build on pushes and pull requests to `main`.
